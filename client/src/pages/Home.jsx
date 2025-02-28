@@ -47,7 +47,7 @@ const Home = () => {
           >
             <h1 className="text-5xl font-bold mb-4">Welcome to Our Store</h1>
             <p className="text-lg">
-              Discover the best deals on premium products
+              Discover the best deals on premium products!
             </p>
             <button className="mt-6 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg transition">
               Shop Now
