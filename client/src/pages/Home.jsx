@@ -2,6 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import shopimg1 from "../assets/shopimg1.jpg";
 import shopimg2 from "../assets/shopimg2.jpg";
+import shopimg3 from "../assets/shopimg3.jpg";
+import shopimg4 from "../assets/shopimg4.jpg";
 
 const Home = () => {
   const featuredProducts = [
@@ -15,8 +17,8 @@ const Home = () => {
     <div className="bg-gray-100">
       {/* Hero Section */}
       <section
-        className="relative h-[500px] bg-cover bg-center flex items-center justify-center text-white text-center px-4"
-        style={{ backgroundImage: `url(${shopimg1})` }}
+        className="relative h-[700px] bg-cover bg-center flex items-center justify-center text-white text-center px-4"
+        style={{ backgroundImage: `url(${shopimg4})` }}
       >
         <motion.div
           initial={{ opacity: 0, y: -50 }}
