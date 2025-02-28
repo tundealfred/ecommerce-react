@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import shopimg1 from "../assets/shopimg1.jpg";
 import shopimg2 from "../assets/shopimg2.jpg";
 import shopimg3 from "../assets/shopimg3.jpg";
@@ -13,25 +15,45 @@ const Home = () => {
     { id: 4, name: "Product 4", price: "$69.99", image: shopimg2 },
   ];
 
+  const heroImages = [shopimg1, shopimg2, shopimg3, shopimg4];
+
   return (
     <div className="bg-gray-100">
       {/* Hero Section */}
-      <section
-        className="relative h-[700px] bg-cover bg-center flex items-center justify-center text-white text-center px-4"
-        style={{ backgroundImage: `url(${shopimg4})` }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="bg-black bg-opacity-50 p-6 rounded-lg"
+      <section className="relative h-[700px] w-full">
+        <Carousel
+          autoPlay
+          infiniteLoop
+          showThumbs={false}
+          showStatus={false}
+          className="h-full"
         >
-          <h1 className="text-5xl font-bold mb-4">Welcome to Our Store</h1>
-          <p className="text-lg">Discover the best deals on premium products</p>
-          <button className="mt-6 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg transition">
-            Shop Now
-          </button>
-        </motion.div>
+          {heroImages.map((image, index) => (
+            <div key={index} className="h-[700px] w-full">
+              <img
+                src={image}
+                alt={`Slide ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </Carousel>
+        <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 bg-black bg-opacity-30">
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="p-6 rounded-lg"
+          >
+            <h1 className="text-5xl font-bold mb-4">Welcome to Our Store</h1>
+            <p className="text-lg">
+              Discover the best deals on premium products
+            </p>
+            <button className="mt-6 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg transition">
+              Shop Now
+            </button>
+          </motion.div>
+        </div>
       </section>
 
       {/* Promo Section */}
