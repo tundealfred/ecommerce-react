@@ -26,4 +26,4 @@ app.get("/", (request, response) => {
 });
 
 // this turns the server on to the port that you specifed in your .env file
-app.listen(PORT, () => console.log(`Server is Running. listening on ${PORT}`));
+app.listen(PORT, () => console.log(`Server is Running!. listening on ${PORT}`));

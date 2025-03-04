@@ -11,10 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@medusajs/medusa-js": "^6.1.10",
+    "@strapi/strapi": "^5.10.4",
     "axios": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.12.0",
+    "nodemailer": "^6.10.0",
     "nodemon": "^3.1.9"
   }
 }
