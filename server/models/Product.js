@@ -1,4 +1,3 @@
-// backend/models/Product.js
 const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
