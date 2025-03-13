@@ -10,10 +10,10 @@ import shopimg4 from "../assets/shopimg4.jpg";
 
 const Home = () => {
   const featuredProducts = [
-    { id: 1, name: "Product 1", price: "$99.99", image: shopimg1 },
-    { id: 2, name: "Product 2", price: "$89.99", image: shopimg2 },
-    { id: 3, name: "Product 3", price: "$79.99", image: shopimg1 },
-    { id: 4, name: "Product 4", price: "$69.99", image: shopimg2 },
+    { id: 1, name: "Product 1", price: "£99.99", image: shopimg1 },
+    { id: 2, name: "Product 2", price: "£89.99", image: shopimg2 },
+    { id: 3, name: "Product 3", price: "£79.99", image: shopimg1 },
+    { id: 4, name: "Product 4", price: "£69.99", image: shopimg2 },
   ];
 
   const heroImages = [shopimg1, shopimg2, shopimg3, shopimg4];
@@ -67,7 +67,7 @@ const Home = () => {
             className="p-6 bg-white shadow-lg rounded-lg text-center"
           >
             <h3 className="text-xl font-semibold mb-2">Free Shipping</h3>
-            <p>On all orders over $50</p>
+            <p>On all orders over £50</p>
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.05 }}
