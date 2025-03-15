@@ -3,6 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
+import Register from "./components/Register";
 import Dashboard from "./pages/Dashboard";
 import LoginSocial from "./components/LoginSocial";
 
