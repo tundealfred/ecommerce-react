@@ -20,8 +20,6 @@ const Home = () => {
 
   return (
     <>
-      <Navigation />
-
       <div className="bg-gray-100">
         {/* Hero Section */}
         <section className="relative h-[700px] w-full">

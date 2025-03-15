@@ -1,19 +1,32 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import LoginSocial from "./components/LoginSocial";
 
-const App = () => {
+function App() {
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col">
-      <Router>
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </main>
-      </Router>
-    </div>
+    <Router>
+      <AuthProvider>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginSocial />} />
+          {/*<Route path="/register" element={<Register />} />*/}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
-};
+}
 
 export default App;
