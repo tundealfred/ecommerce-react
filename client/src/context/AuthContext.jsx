@@ -36,6 +36,28 @@ export const AuthProvider = ({ children }) => {
       navigate("/dashboard");
     } catch (err) {
       console.error("Login failed", err.response?.data);
+      alert("Invalid credentials. Please try again.");
+    }
+  };
+
+  //Register
+  const register = async (username, email, password) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:1337/api/auth/local/register",
+        {
+          username,
+          email,
+          password,
+        }
+      );
+
+      setUser(res.data.user);
+      setToken(res.data.jwt);
+      localStorage.setItem("token", res.data.jwt);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Registration failed", err.response?.data);
     }
   };
 
@@ -53,7 +75,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, handleOAuth, logout }}>
+    <AuthContext.Provider
+      value={{ user, token, login, register, handleOAuth, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

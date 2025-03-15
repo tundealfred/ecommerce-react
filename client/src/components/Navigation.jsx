@@ -279,6 +279,7 @@ const Navigation = () => {
                 {user ? (
                   <>
                     <Link to="/dashboard" className="mr-4">
+                      <span className="font-semibold">{user.username}</span>:
                       Dashboard
                     </Link>
                     <button
@@ -299,7 +300,7 @@ const Navigation = () => {
               </div>
               <div className="flow-root">
                 <a
-                  href="#"
+                  href="/register"
                   className="-m-2 block p-2 font-medium text-gray-900"
                 >
                   Create account
@@ -311,11 +312,11 @@ const Navigation = () => {
               <a href="#" className="-m-2 flex items-center p-2">
                 <img
                   alt=""
-                  src="https://tailwindui.com/plus-assets/img/flags/flag-canada.svg"
+                  src="https://flagcdn.com/w320/gb.png"
                   className="block h-auto w-5 shrink-0"
                 />
                 <span className="ml-3 block text-base font-medium text-gray-900">
-                  CAD
+                  GBR
                 </span>
                 <span className="sr-only">, change currency</span>
               </a>
@@ -461,7 +462,8 @@ const Navigation = () => {
                     {user ? (
                       <>
                         <Link to="/dashboard" className="mr-4">
-                          Dashboard
+                          <span className="font-semibold">{user.username}</span>
+                          : Dashboard
                         </Link>
                         <button
                           onClick={logout}
@@ -481,7 +483,7 @@ const Navigation = () => {
                   </div>
                   <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
                   <a
-                    href="#"
+                    href="/register"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
                     Create account
@@ -495,10 +497,10 @@ const Navigation = () => {
                   >
                     <img
                       alt=""
-                      src="https://tailwindui.com/plus-assets/img/flags/flag-canada.svg"
+                      src="https://flagcdn.com/w320/gb.png"
                       className="block h-auto w-5 shrink-0"
                     />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
+                    <span className="ml-3 block text-sm font-medium">GBR</span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
