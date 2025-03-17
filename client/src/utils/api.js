@@ -2,17 +2,6 @@ import axios from "axios";
 
 const API_URL = "http://localhost:1337/api";
 
-//fetch user order
-export const fetchUserOrders = async (userId) => {
-  try {
-    const response = await api.get(`/orders?filters[user][id][$eq]=${userId}`);
-    return response.data.data;
-  } catch (error) {
-    console.error("Error fetching orders:", error);
-    return [];
-  }
-};
-
 // Create an Axios instance with default settings
 const api = axios.create({
   baseURL: API_URL,
@@ -30,11 +19,22 @@ export const setAuthToken = (token) => {
   }
 };
 
+//fetch user order
+export const fetchUserOrders = async (userId) => {
+  try {
+    const response = await api.get(`/orders?filters[user][id][$eq]=${userId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    return [];
+  }
+};
+
 // Fetch all products
 export const fetchProducts = async () => {
   try {
     const response = await api.get("/products");
-    return response.data.data || [];
+    return response.data.data;
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];

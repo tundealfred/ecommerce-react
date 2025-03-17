@@ -16,6 +16,7 @@ const Home = () => {
   useEffect(() => {
     const getProducts = async () => {
       const data = await fetchProducts();
+      console.log("API Response:", data); // Debugging
       setProducts(data);
     };
     getProducts();

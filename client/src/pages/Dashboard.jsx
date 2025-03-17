@@ -41,6 +41,18 @@ const Dashboard = () => {
     setProducts(products.filter((product) => product.id !== id));
   };
 
+  // Handle Edit Product
+  const handleEditProduct = async (id, updatedData) => {
+    const updatedProduct = await updateProduct(id, updatedData);
+    setProducts(
+      products.map((product) =>
+        product.id === id
+          ? { ...product, attributes: updatedProduct.data.attributes }
+          : product
+      )
+    );
+  };
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-bold text-center mb-4">Admin Dashboard</h2>
@@ -97,6 +109,13 @@ const Dashboard = () => {
               className="bg-red-500 text-white px-3 py-1 rounded mt-2 hover:bg-red-600"
             >
               Delete
+            </button>
+
+            <button
+              onClick={() => handleEditProduct(product.id)}
+              className="bg-blue-500 text-white px-3 py-1 rounded mt-2 hover:bg-blue-600"
+            >
+              Update
             </button>
           </div>
         ))}
