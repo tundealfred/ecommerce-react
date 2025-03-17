@@ -1,26 +1,105 @@
-import { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  fetchProducts,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+} from "../utils/api";
 import AuthContext from "../context/AuthContext";
 
 const Dashboard = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
+  const [products, setProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState({
+    title: "",
+    price: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const data = await fetchProducts();
+      setProducts(data);
+    };
+    getProducts();
+  }, []);
+
+  if (!user || user.role !== "admin") {
+    return <p className="text-center text-red-500">Access Denied</p>;
+  }
+
+  // Handle Add Product
+  const handleAddProduct = async () => {
+    const res = await addProduct(newProduct, token);
+    setProducts([...products, res.data.data]);
+    setNewProduct({ title: "", price: "", description: "" });
+  };
+
+  // Handle Delete Product
+  const handleDelete = async (id) => {
+    await deleteProduct(id, token);
+    setProducts(products.filter((product) => product.id !== id));
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg text-center w-96">
-        <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-        {user ? (
-          <>
-            <p className="text-gray-700">Welcome, {user.username}</p>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h2 className="text-2xl font-bold text-center mb-4">Admin Dashboard</h2>
+      <div className="bg-white p-4 rounded-lg shadow-md">
+        <h3 className="text-lg font-semibold mb-2">Add New Product</h3>
+        <input
+          type="text"
+          placeholder="Title"
+          value={newProduct.title}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, title: e.target.value })
+          }
+          className="border p-2 w-full rounded"
+        />
+        <input
+          type="text"
+          placeholder="Price"
+          value={newProduct.price}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, price: e.target.value })
+          }
+          className="border p-2 w-full rounded mt-2"
+        />
+        <input
+          type="text"
+          placeholder="Description"
+          value={newProduct.description}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, description: e.target.value })
+          }
+          className="border p-2 w-full rounded mt-2"
+        />
+        <button
+          onClick={handleAddProduct}
+          className="bg-blue-500 text-white px-4 py-2 mt-2 rounded hover:bg-blue-600"
+        >
+          Add Product
+        </button>
+      </div>
+
+      <h3 className="text-xl font-bold mt-6">Manage Products</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        {products.map((product) => (
+          <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
+            <h4 className="text-lg font-semibold">
+              {product.attributes.title}
+            </h4>
+            <p>{product.attributes.description}</p>
+            <p className="text-blue-600 font-bold">
+              £{product.attributes.price}
+            </p>
             <button
-              onClick={logout}
-              className="w-full mt-4 bg-red-500 text-white py-2 rounded hover:bg-red-600"
+              onClick={() => handleDelete(product.id)}
+              className="bg-red-500 text-white px-3 py-1 rounded mt-2 hover:bg-red-600"
             >
-              Logout
+              Delete
             </button>
-          </>
-        ) : (
-          <p className="text-gray-600">Please log in</p>
-        )}
+          </div>
+        ))}
       </div>
     </div>
   );

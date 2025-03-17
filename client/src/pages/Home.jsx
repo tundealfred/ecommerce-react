@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { fetchProducts } from "../utils/api";
+import Dashboard from "./Dashboard";
 import { motion } from "framer-motion";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -9,6 +11,16 @@ import shopimg3 from "../assets/shopimg3.jpg";
 import shopimg4 from "../assets/shopimg4.jpg";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const data = await fetchProducts();
+      setProducts(data);
+    };
+    getProducts();
+  }, []);
+
   const featuredProducts = [
     { id: 1, name: "Product 1", price: "£99.99", image: shopimg1 },
     { id: 2, name: "Product 2", price: "£89.99", image: shopimg2 },
@@ -89,19 +101,19 @@ const Home = () => {
             Featured Products
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
+            {featuredProducts.map((hmproduct) => (
               <motion.div
-                key={product.id}
+                key={hmproduct.id}
                 whileHover={{ scale: 1.05 }}
                 className="p-4 bg-white shadow-lg rounded-lg text-center"
               >
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={hmproduct.image}
+                  alt={hmproduct.name}
                   className="h-40 w-full object-cover rounded-lg mb-4"
                 />
-                <h4 className="text-lg font-semibold">{product.name}</h4>
-                <p className="text-gray-600">{product.price}</p>
+                <h4 className="text-lg font-semibold">{hmproduct.name}</h4>
+                <p className="text-gray-600">{hmproduct.price}</p>
                 <button className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition">
                   Add to Cart
                 </button>
@@ -109,6 +121,32 @@ const Home = () => {
             ))}
           </div>
         </section>
+
+        {/*Product from bckn*/}
+        <div className="min-h-screen bg-gray-100 p-6">
+          <h2 className="text-3xl font-bold text-center mb-6">Main Products</h2>
+          {products.length === 0 ? (
+            <p className="text-center text-gray-500">Loading products...</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {products.map((product) => {
+                const { attributes } = product || {}; // Ensure `product` exists
+                return attributes ? (
+                  <div
+                    key={product.id}
+                    className="bg-white shadow-lg rounded-lg p-4"
+                  >
+                    <h3 className="text-xl font-bold">{attributes.title}</h3>
+                    <p className="text-gray-600">{attributes.description}</p>
+                    <p className="text-lg font-semibold text-blue-600">
+                      £{attributes.price}
+                    </p>
+                  </div>
+                ) : null; // Skip rendering if attributes are missing
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setAuthToken } from "../utils/api";
 
 const AuthContext = createContext();
 
@@ -33,6 +34,7 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data.user);
       setToken(res.data.jwt);
       localStorage.setItem("token", res.data.jwt);
+      setAuthToken(res.data.jwt); // <-- Set token globally
       navigate("/dashboard");
     } catch (err) {
       console.error("Login failed", err.response?.data);
@@ -51,10 +53,10 @@ export const AuthProvider = ({ children }) => {
           password,
         }
       );
-
       setUser(res.data.user);
       setToken(res.data.jwt);
       localStorage.setItem("token", res.data.jwt);
+      setAuthToken(res.data.jwt); // <-- Set token globally
       navigate("/dashboard");
     } catch (err) {
       console.error("Registration failed", err.response?.data);
