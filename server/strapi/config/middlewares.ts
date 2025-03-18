@@ -6,7 +6,7 @@ export default [
     name: "strapi::cors",
     config: {
       enabled: true,
-      origin: ["http://127.0.0.1:5174"], // Allow React frontend
+      origin: ["http://localhost:5173", "http://127.0.0.1:5173"], // Allow React frontend
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       headers: "*", // Allow all headers
       credentials: true, // Allow cookies & authentication headers

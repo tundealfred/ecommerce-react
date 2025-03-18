@@ -16,7 +16,6 @@ const Home = () => {
   useEffect(() => {
     const getProducts = async () => {
       const data = await fetchProducts();
-      console.log("API Response:", data); // Debugging
       setProducts(data);
     };
     getProducts();
@@ -131,19 +130,28 @@ const Home = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {products.map((product) => {
-                const { attributes } = product || {}; // Ensure `product` exists
-                return attributes ? (
+                // Ensure `product.attributes.image.data` exists before accessing
+                const imageUrl = product.image?.data?.attributes?.url
+                  ? `http://localhost:1337${product.image.data.attributes.url}` // ✅ Correct Strapi image path
+                  : "https://via.placeholder.com/150"; // Placeholder if no image
+
+                return (
                   <div
                     key={product.id}
                     className="bg-white shadow-lg rounded-lg p-4"
                   >
-                    <h3 className="text-xl font-bold">{attributes.title}</h3>
-                    <p className="text-gray-600">{attributes.description}</p>
+                    <img
+                      src={imageUrl}
+                      alt={product.title}
+                      className="h-40 w-full object-cover rounded-lg mb-4"
+                    />
+                    <h3 className="text-xl font-bold">{product.title}</h3>
+                    <p className="text-gray-600">{product.description}</p>
                     <p className="text-lg font-semibold text-blue-600">
-                      £{attributes.price}
+                      £{product.price}
                     </p>
                   </div>
-                ) : null; // Skip rendering if attributes are missing
+                );
               })}
             </div>
           )}
